@@ -162,7 +162,6 @@ BEGIN
     SELECT course_id INTO STRICT course_key FROM lms.cohorts WHERE id = p_cohort;
     PERFORM 1 FROM lms.courses WHERE id = course_key AND NOT is_deleted AND status = 'published' FOR SHARE;
     IF NOT FOUND THEN RAISE EXCEPTION 'Published active course required'; END IF;
-    -- Один рядок групи блокується до commit/rollback: останнє місце не займуть двічі.
     SELECT capacity INTO places FROM lms.cohorts
     WHERE id = p_cohort AND status = 'open' AND ends_on >= current_date FOR UPDATE;
     IF NOT FOUND THEN RAISE EXCEPTION 'Open cohort not found'; END IF;
@@ -306,8 +305,6 @@ BEGIN
 END;
 $$;
 
--- Власник функцій і процедур повинен бути довіреним власником схеми.
--- Фіксований search_path захищає SECURITY DEFINER від підміни об'єктів.
 DO $$
 DECLARE obj record;
 BEGIN

@@ -1,1 +1,0 @@
-"""Course management database demonstration."""

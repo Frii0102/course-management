@@ -2,7 +2,6 @@
 BEGIN;
 \ir 01_schema.sql
 \ir 02_functions.sql
--- Початкові записи створюються до ввімкнення тригерів аудиту.
 \ir 07_seed.sql
 \ir 03_triggers.sql
 \ir 04_views.sql

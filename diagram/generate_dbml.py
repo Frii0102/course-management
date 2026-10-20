@@ -1,4 +1,3 @@
-"""Generate DBML from PostgreSQL without overwriting the exported diagram."""
 import json
 import os
 from collections import defaultdict
@@ -70,8 +69,7 @@ def normalize_type(kind):
 def write_dbml(output, tables, constraints, references, indexes):
     primary = {(t, col) for t, kind, _, cols, _, _ in constraints if kind == "p" for col in cols}
     unique = {(t, cols[0]) for t, kind, _, cols, _, _ in constraints if kind == "u" and len(cols) == 1}
-    lines = ["// Course management: generated from the installed schema.",
-             "Project course_management {", "  database_type: 'PostgreSQL'", "}", ""]
+    lines = ["Project course_management {", "  database_type: 'PostgreSQL'", "}", ""]
     for table, columns in tables.items():
         lines.append("Table " + table + " {")
         for col in columns:
@@ -134,7 +132,6 @@ def write_svg(output, tables, constraints, references):
         col, row = POSITIONS[table]
         return 40 + col * 435, 170 + row * row_step, card_width, 56 + len(tables[table]) * 23
 
-    # Службові посилання updated_by не дублюємо стрілками: вони підписані біля полів.
     for index, (table, column, target, _) in enumerate(references):
         if column in {"updated_by", "changed_by", "issued_by", "graded_by"} or table == target:
             continue

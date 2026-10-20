@@ -11,8 +11,6 @@ from .repositories import (
 
 
 class UnitOfWork:
-    """One connection and one transaction for all repositories."""
-
     def __init__(self, user_id, dsn=None):
         self.user_id = user_id
         self.dsn = dsn or os.getenv("LMS_DSN")
@@ -41,7 +39,6 @@ class UnitOfWork:
         return self
 
     def commit(self):
-        # Після commit цей Unit of Work завершений; для нових операцій потрібен новий with.
         self.connection.commit()
         self.connection.close()
 

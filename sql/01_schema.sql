@@ -1,4 +1,3 @@
--- Встановлення лише в порожню БД: наявні дані не видаляються.
 CREATE SCHEMA lms;
 
 CREATE TABLE lms.roles (

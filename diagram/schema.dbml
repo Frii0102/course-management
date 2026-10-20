@@ -1,4 +1,3 @@
-// Course management: generated from the installed schema.
 Project course_management {
   database_type: 'PostgreSQL'
 }

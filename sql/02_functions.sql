@@ -82,7 +82,6 @@ $$;
 CREATE FUNCTION lms.guard_prerequisite() RETURNS trigger
 LANGUAGE plpgsql AS $$
 BEGIN
-    -- Серіалізуємо зміни графа, щоб паралельні вставки не утворили цикл.
     PERFORM pg_advisory_xact_lock(713001);
     IF EXISTS (
         WITH RECURSIVE path(id) AS (
