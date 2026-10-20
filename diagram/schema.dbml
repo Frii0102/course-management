@@ -1,0 +1,280 @@
+// Course management: generated from the installed schema.
+Project course_management {
+  database_type: 'PostgreSQL'
+}
+
+Table assignments {
+  id bigint [pk, not null, increment]
+  lesson_id bigint [not null]
+  title varchar(200) [not null]
+  description text [not null, default: `''::text`]
+  max_score numeric(7,2) [not null]
+  is_deleted boolean [not null, default: `false`]
+  deleted_at timestamptz
+  updated_at timestamptz [not null, default: `clock_timestamp()`]
+  updated_by bigint [not null]
+  Note: '''CHECK ((is_deleted = (deleted_at IS NOT NULL)))
+CHECK ((max_score > (0)::numeric))
+CHECK ((length(TRIM(BOTH FROM title)) > 0))'''
+}
+
+Table audit_log {
+  id bigint [pk, not null, increment]
+  table_name text [not null]
+  record_id bigint [not null]
+  operation varchar(10) [not null]
+  old_data jsonb
+  new_data jsonb
+  changed_at timestamptz [not null, default: `clock_timestamp()`]
+  changed_by bigint [not null]
+  Note: '''CHECK (((operation)::text = ANY ((ARRAY['INSERT'::character varying, 'UPDATE'::character varying, 'DELETE'::character varying])::text[])))
+CREATE INDEX ix_audit_new_data ON lms.audit_log USING gin (new_data)
+CREATE INDEX ix_audit_record ON lms.audit_log USING btree (table_name, record_id, id)'''
+}
+
+Table categories {
+  id bigint [pk, not null, increment]
+  name varchar(100) [not null]
+  is_deleted boolean [not null, default: `false`]
+  deleted_at timestamptz
+  updated_at timestamptz [not null, default: `clock_timestamp()`]
+  updated_by bigint [not null]
+  Note: '''CHECK ((is_deleted = (deleted_at IS NOT NULL)))
+CHECK ((length(TRIM(BOTH FROM name)) > 0))
+CREATE UNIQUE INDEX uq_categories_active_name ON lms.categories USING btree (lower((name)::text)) WHERE (NOT is_deleted)'''
+}
+
+Table certificates {
+  id bigint [pk, not null, increment]
+  enrollment_id bigint [not null, unique]
+  certificate_number varchar(60) [not null, unique]
+  issued_at timestamptz [not null, default: `clock_timestamp()`]
+  issued_by bigint [not null]
+}
+
+Table cohorts {
+  id bigint [pk, not null, increment]
+  course_id bigint [not null]
+  name varchar(100) [not null]
+  starts_on date [not null]
+  ends_on date [not null]
+  capacity integer [not null]
+  status varchar(20) [not null, default: `'open'::character varying`]
+  updated_at timestamptz [not null, default: `clock_timestamp()`]
+  updated_by bigint [not null]
+  indexes {
+    (course_id, name) [unique]
+  }
+  Note: '''CHECK ((capacity > 0))
+CHECK ((ends_on >= starts_on))
+CHECK (((status)::text = ANY ((ARRAY['open'::character varying, 'closed'::character varying, 'finished'::character varying])::text[])))'''
+}
+
+Table course_instructors {
+  id bigint [pk, not null, increment]
+  course_id bigint [not null]
+  instructor_id bigint [not null]
+  indexes {
+    (course_id, instructor_id) [unique]
+  }
+  Note: '''CREATE INDEX ix_course_instructors_instructor ON lms.course_instructors USING btree (instructor_id)'''
+}
+
+Table course_prerequisites {
+  id bigint [pk, not null, increment]
+  course_id bigint [not null]
+  prerequisite_id bigint [not null]
+  indexes {
+    (course_id, prerequisite_id) [unique]
+  }
+  Note: '''CHECK ((course_id <> prerequisite_id))
+CREATE INDEX ix_prerequisite_reverse ON lms.course_prerequisites USING btree (prerequisite_id)'''
+}
+
+Table course_reviews {
+  id bigint [pk, not null, increment]
+  enrollment_id bigint [not null, unique]
+  rating smallint [not null]
+  comment text [not null, default: `''::text`]
+  updated_at timestamptz [not null, default: `clock_timestamp()`]
+  updated_by bigint [not null]
+  Note: '''CHECK (((rating >= 1) AND (rating <= 5)))'''
+}
+
+Table courses {
+  id bigint [pk, not null, increment]
+  category_id bigint [not null]
+  code varchar(30) [not null]
+  title varchar(200) [not null]
+  description text [not null, default: `''::text`]
+  status varchar(20) [not null, default: `'draft'::character varying`]
+  is_deleted boolean [not null, default: `false`]
+  deleted_at timestamptz
+  updated_at timestamptz [not null, default: `clock_timestamp()`]
+  updated_by bigint [not null]
+  Note: '''CHECK ((is_deleted = (deleted_at IS NOT NULL)))
+CHECK (((status)::text = ANY ((ARRAY['draft'::character varying, 'published'::character varying, 'archived'::character varying])::text[])))
+CHECK ((length(TRIM(BOTH FROM title)) > 0))
+CREATE INDEX ix_courses_category ON lms.courses USING btree (category_id)
+CREATE INDEX ix_courses_search ON lms.courses USING gin (to_tsvector('simple'::regconfig, (((title)::text || ' '::text) || description))) WHERE (NOT is_deleted)
+CREATE UNIQUE INDEX uq_courses_active_code ON lms.courses USING btree (code) WHERE (NOT is_deleted)'''
+}
+
+Table enrollments {
+  id bigint [pk, not null, increment]
+  cohort_id bigint [not null]
+  student_id bigint [not null]
+  status varchar(20) [not null, default: `'active'::character varying`]
+  enrolled_at timestamptz [not null, default: `clock_timestamp()`]
+  completed_at timestamptz
+  updated_at timestamptz [not null, default: `clock_timestamp()`]
+  updated_by bigint [not null]
+  indexes {
+    (cohort_id, student_id) [unique]
+  }
+  Note: '''CHECK ((((status)::text = 'completed'::text) = (completed_at IS NOT NULL)))
+CHECK (((status)::text = ANY ((ARRAY['active'::character varying, 'completed'::character varying, 'cancelled'::character varying])::text[])))
+CREATE INDEX ix_enrollments_student ON lms.enrollments USING btree (student_id)'''
+}
+
+Table instructor_profiles {
+  user_id bigint [pk, not null]
+  specialization varchar(150) [not null]
+  biography text [not null, default: `''::text`]
+}
+
+Table lesson_progress {
+  id bigint [pk, not null, increment]
+  enrollment_id bigint [not null]
+  lesson_id bigint [not null]
+  completed_at timestamptz [not null, default: `clock_timestamp()`]
+  indexes {
+    (enrollment_id, lesson_id) [unique]
+  }
+  Note: '''CREATE INDEX ix_progress_lesson ON lms.lesson_progress USING btree (lesson_id)'''
+}
+
+Table lessons {
+  id bigint [pk, not null, increment]
+  module_id bigint [not null]
+  title varchar(200) [not null]
+  content text [not null, default: `''::text`]
+  duration_minutes integer [not null]
+  position integer [not null]
+  updated_at timestamptz [not null, default: `clock_timestamp()`]
+  updated_by bigint [not null]
+  indexes {
+    (module_id, position) [unique]
+  }
+  Note: '''CHECK ((duration_minutes > 0))
+CHECK (("position" > 0))
+CHECK ((length(TRIM(BOTH FROM title)) > 0))'''
+}
+
+Table materials {
+  id bigint [pk, not null, increment]
+  lesson_id bigint [not null]
+  title varchar(200) [not null]
+  url text [not null]
+  kind varchar(20) [not null]
+  Note: '''CHECK (((kind)::text = ANY ((ARRAY['document'::character varying, 'video'::character varying, 'link'::character varying])::text[])))
+CHECK ((url ~ '^https?://'::text))'''
+}
+
+Table modules {
+  id bigint [pk, not null, increment]
+  course_id bigint [not null]
+  title varchar(200) [not null]
+  position integer [not null]
+  updated_at timestamptz [not null, default: `clock_timestamp()`]
+  updated_by bigint [not null]
+  indexes {
+    (course_id, position) [unique]
+  }
+  Note: '''CHECK (("position" > 0))
+CHECK ((length(TRIM(BOTH FROM title)) > 0))'''
+}
+
+Table roles {
+  id smallint [pk, not null, increment]
+  code varchar(20) [not null, unique]
+  name varchar(80) [not null]
+  Note: '''CHECK (((code)::text = ANY ((ARRAY['admin'::character varying, 'instructor'::character varying, 'student'::character varying])::text[])))'''
+}
+
+Table student_profiles {
+  user_id bigint [pk, not null]
+  student_number varchar(30) [not null, unique]
+  registered_on date [not null, default: `CURRENT_DATE`]
+}
+
+Table submissions {
+  id bigint [pk, not null, increment]
+  enrollment_id bigint [not null]
+  assignment_id bigint [not null]
+  answer text [not null]
+  submitted_at timestamptz [not null, default: `clock_timestamp()`]
+  score numeric(7,2)
+  feedback text
+  graded_by bigint
+  graded_at timestamptz
+  updated_at timestamptz [not null, default: `clock_timestamp()`]
+  updated_by bigint [not null]
+  indexes {
+    (enrollment_id, assignment_id) [unique]
+  }
+  Note: '''CHECK ((length(TRIM(BOTH FROM answer)) > 0))
+CHECK ((((score IS NULL) AND (graded_by IS NULL) AND (graded_at IS NULL)) OR ((score IS NOT NULL) AND (graded_by IS NOT NULL) AND (graded_at IS NOT NULL))))
+CHECK ((score >= (0)::numeric))
+CREATE INDEX ix_submissions_assignment ON lms.submissions USING btree (assignment_id)'''
+}
+
+Table users {
+  id bigint [pk, not null, increment]
+  role_id smallint [not null]
+  email varchar(254) [not null]
+  full_name varchar(150) [not null]
+  is_deleted boolean [not null, default: `false`]
+  deleted_at timestamptz
+  updated_at timestamptz [not null, default: `clock_timestamp()`]
+  updated_by bigint
+  Note: '''CHECK ((is_deleted = (deleted_at IS NOT NULL)))
+CHECK ((((email)::text = lower((email)::text)) AND (POSITION(('@'::text) IN (email)) > 1)))
+CHECK ((length(TRIM(BOTH FROM full_name)) > 0))
+CREATE UNIQUE INDEX uq_users_active_email ON lms.users USING btree (email) WHERE (NOT is_deleted)'''
+}
+
+Ref: assignments.lesson_id > lessons.id
+Ref: assignments.updated_by > users.id
+Ref: audit_log.changed_by > users.id
+Ref: categories.updated_by > users.id
+Ref: certificates.enrollment_id - enrollments.id
+Ref: certificates.issued_by > users.id
+Ref: cohorts.course_id > courses.id
+Ref: cohorts.updated_by > users.id
+Ref: course_instructors.course_id > courses.id
+Ref: course_instructors.instructor_id > instructor_profiles.user_id
+Ref: course_prerequisites.course_id > courses.id
+Ref: course_prerequisites.prerequisite_id > courses.id
+Ref: course_reviews.enrollment_id - enrollments.id
+Ref: course_reviews.updated_by > users.id
+Ref: courses.category_id > categories.id
+Ref: courses.updated_by > users.id
+Ref: enrollments.cohort_id > cohorts.id
+Ref: enrollments.student_id > student_profiles.user_id
+Ref: enrollments.updated_by > users.id
+Ref: instructor_profiles.user_id - users.id
+Ref: lesson_progress.enrollment_id > enrollments.id
+Ref: lesson_progress.lesson_id > lessons.id
+Ref: lessons.module_id > modules.id
+Ref: lessons.updated_by > users.id
+Ref: materials.lesson_id > lessons.id
+Ref: modules.course_id > courses.id
+Ref: modules.updated_by > users.id
+Ref: student_profiles.user_id - users.id
+Ref: submissions.assignment_id > assignments.id
+Ref: submissions.enrollment_id > enrollments.id
+Ref: submissions.graded_by > instructor_profiles.user_id
+Ref: submissions.updated_by > users.id
+Ref: users.role_id > roles.id
+Ref: users.updated_by > users.id

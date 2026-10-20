@@ -1,0 +1,15 @@
+.venv/
+__pycache__/
+*.pyc
+.env
+.DS_Store
+.local_postgres/
+.idea/
+tests/
+DEFENSE.md
+REQUIREMENTS.md
+TEST_REPORT.md
+PYCHARM_CONNECTION.md
+README_LOCAL.md
+start_database.command
+stop_database.command

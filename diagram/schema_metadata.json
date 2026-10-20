@@ -1,0 +1,2275 @@
+{
+  "tables": {
+    "assignments": [
+      {
+        "name": "id",
+        "type": "bigint",
+        "required": true,
+        "identity": true,
+        "default": null
+      },
+      {
+        "name": "lesson_id",
+        "type": "bigint",
+        "required": true,
+        "identity": false,
+        "default": null
+      },
+      {
+        "name": "title",
+        "type": "character varying(200)",
+        "required": true,
+        "identity": false,
+        "default": null
+      },
+      {
+        "name": "description",
+        "type": "text",
+        "required": true,
+        "identity": false,
+        "default": "''::text"
+      },
+      {
+        "name": "max_score",
+        "type": "numeric(7,2)",
+        "required": true,
+        "identity": false,
+        "default": null
+      },
+      {
+        "name": "is_deleted",
+        "type": "boolean",
+        "required": true,
+        "identity": false,
+        "default": "false"
+      },
+      {
+        "name": "deleted_at",
+        "type": "timestamp with time zone",
+        "required": false,
+        "identity": false,
+        "default": null
+      },
+      {
+        "name": "updated_at",
+        "type": "timestamp with time zone",
+        "required": true,
+        "identity": false,
+        "default": "clock_timestamp()"
+      },
+      {
+        "name": "updated_by",
+        "type": "bigint",
+        "required": true,
+        "identity": false,
+        "default": null
+      }
+    ],
+    "audit_log": [
+      {
+        "name": "id",
+        "type": "bigint",
+        "required": true,
+        "identity": true,
+        "default": null
+      },
+      {
+        "name": "table_name",
+        "type": "text",
+        "required": true,
+        "identity": false,
+        "default": null
+      },
+      {
+        "name": "record_id",
+        "type": "bigint",
+        "required": true,
+        "identity": false,
+        "default": null
+      },
+      {
+        "name": "operation",
+        "type": "character varying(10)",
+        "required": true,
+        "identity": false,
+        "default": null
+      },
+      {
+        "name": "old_data",
+        "type": "jsonb",
+        "required": false,
+        "identity": false,
+        "default": null
+      },
+      {
+        "name": "new_data",
+        "type": "jsonb",
+        "required": false,
+        "identity": false,
+        "default": null
+      },
+      {
+        "name": "changed_at",
+        "type": "timestamp with time zone",
+        "required": true,
+        "identity": false,
+        "default": "clock_timestamp()"
+      },
+      {
+        "name": "changed_by",
+        "type": "bigint",
+        "required": true,
+        "identity": false,
+        "default": null
+      }
+    ],
+    "categories": [
+      {
+        "name": "id",
+        "type": "bigint",
+        "required": true,
+        "identity": true,
+        "default": null
+      },
+      {
+        "name": "name",
+        "type": "character varying(100)",
+        "required": true,
+        "identity": false,
+        "default": null
+      },
+      {
+        "name": "is_deleted",
+        "type": "boolean",
+        "required": true,
+        "identity": false,
+        "default": "false"
+      },
+      {
+        "name": "deleted_at",
+        "type": "timestamp with time zone",
+        "required": false,
+        "identity": false,
+        "default": null
+      },
+      {
+        "name": "updated_at",
+        "type": "timestamp with time zone",
+        "required": true,
+        "identity": false,
+        "default": "clock_timestamp()"
+      },
+      {
+        "name": "updated_by",
+        "type": "bigint",
+        "required": true,
+        "identity": false,
+        "default": null
+      }
+    ],
+    "certificates": [
+      {
+        "name": "id",
+        "type": "bigint",
+        "required": true,
+        "identity": true,
+        "default": null
+      },
+      {
+        "name": "enrollment_id",
+        "type": "bigint",
+        "required": true,
+        "identity": false,
+        "default": null
+      },
+      {
+        "name": "certificate_number",
+        "type": "character varying(60)",
+        "required": true,
+        "identity": false,
+        "default": null
+      },
+      {
+        "name": "issued_at",
+        "type": "timestamp with time zone",
+        "required": true,
+        "identity": false,
+        "default": "clock_timestamp()"
+      },
+      {
+        "name": "issued_by",
+        "type": "bigint",
+        "required": true,
+        "identity": false,
+        "default": null
+      }
+    ],
+    "cohorts": [
+      {
+        "name": "id",
+        "type": "bigint",
+        "required": true,
+        "identity": true,
+        "default": null
+      },
+      {
+        "name": "course_id",
+        "type": "bigint",
+        "required": true,
+        "identity": false,
+        "default": null
+      },
+      {
+        "name": "name",
+        "type": "character varying(100)",
+        "required": true,
+        "identity": false,
+        "default": null
+      },
+      {
+        "name": "starts_on",
+        "type": "date",
+        "required": true,
+        "identity": false,
+        "default": null
+      },
+      {
+        "name": "ends_on",
+        "type": "date",
+        "required": true,
+        "identity": false,
+        "default": null
+      },
+      {
+        "name": "capacity",
+        "type": "integer",
+        "required": true,
+        "identity": false,
+        "default": null
+      },
+      {
+        "name": "status",
+        "type": "character varying(20)",
+        "required": true,
+        "identity": false,
+        "default": "'open'::character varying"
+      },
+      {
+        "name": "updated_at",
+        "type": "timestamp with time zone",
+        "required": true,
+        "identity": false,
+        "default": "clock_timestamp()"
+      },
+      {
+        "name": "updated_by",
+        "type": "bigint",
+        "required": true,
+        "identity": false,
+        "default": null
+      }
+    ],
+    "course_instructors": [
+      {
+        "name": "id",
+        "type": "bigint",
+        "required": true,
+        "identity": true,
+        "default": null
+      },
+      {
+        "name": "course_id",
+        "type": "bigint",
+        "required": true,
+        "identity": false,
+        "default": null
+      },
+      {
+        "name": "instructor_id",
+        "type": "bigint",
+        "required": true,
+        "identity": false,
+        "default": null
+      }
+    ],
+    "course_prerequisites": [
+      {
+        "name": "id",
+        "type": "bigint",
+        "required": true,
+        "identity": true,
+        "default": null
+      },
+      {
+        "name": "course_id",
+        "type": "bigint",
+        "required": true,
+        "identity": false,
+        "default": null
+      },
+      {
+        "name": "prerequisite_id",
+        "type": "bigint",
+        "required": true,
+        "identity": false,
+        "default": null
+      }
+    ],
+    "course_reviews": [
+      {
+        "name": "id",
+        "type": "bigint",
+        "required": true,
+        "identity": true,
+        "default": null
+      },
+      {
+        "name": "enrollment_id",
+        "type": "bigint",
+        "required": true,
+        "identity": false,
+        "default": null
+      },
+      {
+        "name": "rating",
+        "type": "smallint",
+        "required": true,
+        "identity": false,
+        "default": null
+      },
+      {
+        "name": "comment",
+        "type": "text",
+        "required": true,
+        "identity": false,
+        "default": "''::text"
+      },
+      {
+        "name": "updated_at",
+        "type": "timestamp with time zone",
+        "required": true,
+        "identity": false,
+        "default": "clock_timestamp()"
+      },
+      {
+        "name": "updated_by",
+        "type": "bigint",
+        "required": true,
+        "identity": false,
+        "default": null
+      }
+    ],
+    "courses": [
+      {
+        "name": "id",
+        "type": "bigint",
+        "required": true,
+        "identity": true,
+        "default": null
+      },
+      {
+        "name": "category_id",
+        "type": "bigint",
+        "required": true,
+        "identity": false,
+        "default": null
+      },
+      {
+        "name": "code",
+        "type": "character varying(30)",
+        "required": true,
+        "identity": false,
+        "default": null
+      },
+      {
+        "name": "title",
+        "type": "character varying(200)",
+        "required": true,
+        "identity": false,
+        "default": null
+      },
+      {
+        "name": "description",
+        "type": "text",
+        "required": true,
+        "identity": false,
+        "default": "''::text"
+      },
+      {
+        "name": "status",
+        "type": "character varying(20)",
+        "required": true,
+        "identity": false,
+        "default": "'draft'::character varying"
+      },
+      {
+        "name": "is_deleted",
+        "type": "boolean",
+        "required": true,
+        "identity": false,
+        "default": "false"
+      },
+      {
+        "name": "deleted_at",
+        "type": "timestamp with time zone",
+        "required": false,
+        "identity": false,
+        "default": null
+      },
+      {
+        "name": "updated_at",
+        "type": "timestamp with time zone",
+        "required": true,
+        "identity": false,
+        "default": "clock_timestamp()"
+      },
+      {
+        "name": "updated_by",
+        "type": "bigint",
+        "required": true,
+        "identity": false,
+        "default": null
+      }
+    ],
+    "enrollments": [
+      {
+        "name": "id",
+        "type": "bigint",
+        "required": true,
+        "identity": true,
+        "default": null
+      },
+      {
+        "name": "cohort_id",
+        "type": "bigint",
+        "required": true,
+        "identity": false,
+        "default": null
+      },
+      {
+        "name": "student_id",
+        "type": "bigint",
+        "required": true,
+        "identity": false,
+        "default": null
+      },
+      {
+        "name": "status",
+        "type": "character varying(20)",
+        "required": true,
+        "identity": false,
+        "default": "'active'::character varying"
+      },
+      {
+        "name": "enrolled_at",
+        "type": "timestamp with time zone",
+        "required": true,
+        "identity": false,
+        "default": "clock_timestamp()"
+      },
+      {
+        "name": "completed_at",
+        "type": "timestamp with time zone",
+        "required": false,
+        "identity": false,
+        "default": null
+      },
+      {
+        "name": "updated_at",
+        "type": "timestamp with time zone",
+        "required": true,
+        "identity": false,
+        "default": "clock_timestamp()"
+      },
+      {
+        "name": "updated_by",
+        "type": "bigint",
+        "required": true,
+        "identity": false,
+        "default": null
+      }
+    ],
+    "instructor_profiles": [
+      {
+        "name": "user_id",
+        "type": "bigint",
+        "required": true,
+        "identity": false,
+        "default": null
+      },
+      {
+        "name": "specialization",
+        "type": "character varying(150)",
+        "required": true,
+        "identity": false,
+        "default": null
+      },
+      {
+        "name": "biography",
+        "type": "text",
+        "required": true,
+        "identity": false,
+        "default": "''::text"
+      }
+    ],
+    "lesson_progress": [
+      {
+        "name": "id",
+        "type": "bigint",
+        "required": true,
+        "identity": true,
+        "default": null
+      },
+      {
+        "name": "enrollment_id",
+        "type": "bigint",
+        "required": true,
+        "identity": false,
+        "default": null
+      },
+      {
+        "name": "lesson_id",
+        "type": "bigint",
+        "required": true,
+        "identity": false,
+        "default": null
+      },
+      {
+        "name": "completed_at",
+        "type": "timestamp with time zone",
+        "required": true,
+        "identity": false,
+        "default": "clock_timestamp()"
+      }
+    ],
+    "lessons": [
+      {
+        "name": "id",
+        "type": "bigint",
+        "required": true,
+        "identity": true,
+        "default": null
+      },
+      {
+        "name": "module_id",
+        "type": "bigint",
+        "required": true,
+        "identity": false,
+        "default": null
+      },
+      {
+        "name": "title",
+        "type": "character varying(200)",
+        "required": true,
+        "identity": false,
+        "default": null
+      },
+      {
+        "name": "content",
+        "type": "text",
+        "required": true,
+        "identity": false,
+        "default": "''::text"
+      },
+      {
+        "name": "duration_minutes",
+        "type": "integer",
+        "required": true,
+        "identity": false,
+        "default": null
+      },
+      {
+        "name": "position",
+        "type": "integer",
+        "required": true,
+        "identity": false,
+        "default": null
+      },
+      {
+        "name": "updated_at",
+        "type": "timestamp with time zone",
+        "required": true,
+        "identity": false,
+        "default": "clock_timestamp()"
+      },
+      {
+        "name": "updated_by",
+        "type": "bigint",
+        "required": true,
+        "identity": false,
+        "default": null
+      }
+    ],
+    "materials": [
+      {
+        "name": "id",
+        "type": "bigint",
+        "required": true,
+        "identity": true,
+        "default": null
+      },
+      {
+        "name": "lesson_id",
+        "type": "bigint",
+        "required": true,
+        "identity": false,
+        "default": null
+      },
+      {
+        "name": "title",
+        "type": "character varying(200)",
+        "required": true,
+        "identity": false,
+        "default": null
+      },
+      {
+        "name": "url",
+        "type": "text",
+        "required": true,
+        "identity": false,
+        "default": null
+      },
+      {
+        "name": "kind",
+        "type": "character varying(20)",
+        "required": true,
+        "identity": false,
+        "default": null
+      }
+    ],
+    "modules": [
+      {
+        "name": "id",
+        "type": "bigint",
+        "required": true,
+        "identity": true,
+        "default": null
+      },
+      {
+        "name": "course_id",
+        "type": "bigint",
+        "required": true,
+        "identity": false,
+        "default": null
+      },
+      {
+        "name": "title",
+        "type": "character varying(200)",
+        "required": true,
+        "identity": false,
+        "default": null
+      },
+      {
+        "name": "position",
+        "type": "integer",
+        "required": true,
+        "identity": false,
+        "default": null
+      },
+      {
+        "name": "updated_at",
+        "type": "timestamp with time zone",
+        "required": true,
+        "identity": false,
+        "default": "clock_timestamp()"
+      },
+      {
+        "name": "updated_by",
+        "type": "bigint",
+        "required": true,
+        "identity": false,
+        "default": null
+      }
+    ],
+    "roles": [
+      {
+        "name": "id",
+        "type": "smallint",
+        "required": true,
+        "identity": true,
+        "default": null
+      },
+      {
+        "name": "code",
+        "type": "character varying(20)",
+        "required": true,
+        "identity": false,
+        "default": null
+      },
+      {
+        "name": "name",
+        "type": "character varying(80)",
+        "required": true,
+        "identity": false,
+        "default": null
+      }
+    ],
+    "student_profiles": [
+      {
+        "name": "user_id",
+        "type": "bigint",
+        "required": true,
+        "identity": false,
+        "default": null
+      },
+      {
+        "name": "student_number",
+        "type": "character varying(30)",
+        "required": true,
+        "identity": false,
+        "default": null
+      },
+      {
+        "name": "registered_on",
+        "type": "date",
+        "required": true,
+        "identity": false,
+        "default": "CURRENT_DATE"
+      }
+    ],
+    "submissions": [
+      {
+        "name": "id",
+        "type": "bigint",
+        "required": true,
+        "identity": true,
+        "default": null
+      },
+      {
+        "name": "enrollment_id",
+        "type": "bigint",
+        "required": true,
+        "identity": false,
+        "default": null
+      },
+      {
+        "name": "assignment_id",
+        "type": "bigint",
+        "required": true,
+        "identity": false,
+        "default": null
+      },
+      {
+        "name": "answer",
+        "type": "text",
+        "required": true,
+        "identity": false,
+        "default": null
+      },
+      {
+        "name": "submitted_at",
+        "type": "timestamp with time zone",
+        "required": true,
+        "identity": false,
+        "default": "clock_timestamp()"
+      },
+      {
+        "name": "score",
+        "type": "numeric(7,2)",
+        "required": false,
+        "identity": false,
+        "default": null
+      },
+      {
+        "name": "feedback",
+        "type": "text",
+        "required": false,
+        "identity": false,
+        "default": null
+      },
+      {
+        "name": "graded_by",
+        "type": "bigint",
+        "required": false,
+        "identity": false,
+        "default": null
+      },
+      {
+        "name": "graded_at",
+        "type": "timestamp with time zone",
+        "required": false,
+        "identity": false,
+        "default": null
+      },
+      {
+        "name": "updated_at",
+        "type": "timestamp with time zone",
+        "required": true,
+        "identity": false,
+        "default": "clock_timestamp()"
+      },
+      {
+        "name": "updated_by",
+        "type": "bigint",
+        "required": true,
+        "identity": false,
+        "default": null
+      }
+    ],
+    "users": [
+      {
+        "name": "id",
+        "type": "bigint",
+        "required": true,
+        "identity": true,
+        "default": null
+      },
+      {
+        "name": "role_id",
+        "type": "smallint",
+        "required": true,
+        "identity": false,
+        "default": null
+      },
+      {
+        "name": "email",
+        "type": "character varying(254)",
+        "required": true,
+        "identity": false,
+        "default": null
+      },
+      {
+        "name": "full_name",
+        "type": "character varying(150)",
+        "required": true,
+        "identity": false,
+        "default": null
+      },
+      {
+        "name": "is_deleted",
+        "type": "boolean",
+        "required": true,
+        "identity": false,
+        "default": "false"
+      },
+      {
+        "name": "deleted_at",
+        "type": "timestamp with time zone",
+        "required": false,
+        "identity": false,
+        "default": null
+      },
+      {
+        "name": "updated_at",
+        "type": "timestamp with time zone",
+        "required": true,
+        "identity": false,
+        "default": "clock_timestamp()"
+      },
+      {
+        "name": "updated_by",
+        "type": "bigint",
+        "required": false,
+        "identity": false,
+        "default": null
+      }
+    ]
+  },
+  "constraints": [
+    [
+      "assignments",
+      "c",
+      "assignments_check",
+      [
+        "is_deleted",
+        "deleted_at"
+      ],
+      null,
+      "CHECK ((is_deleted = (deleted_at IS NOT NULL)))"
+    ],
+    [
+      "assignments",
+      "f",
+      "assignments_lesson_id_fkey",
+      [
+        "lesson_id"
+      ],
+      "lessons",
+      "FOREIGN KEY (lesson_id) REFERENCES lms.lessons(id)"
+    ],
+    [
+      "assignments",
+      "c",
+      "assignments_max_score_check",
+      [
+        "max_score"
+      ],
+      null,
+      "CHECK ((max_score > (0)::numeric))"
+    ],
+    [
+      "assignments",
+      "p",
+      "assignments_pkey",
+      [
+        "id"
+      ],
+      null,
+      "PRIMARY KEY (id)"
+    ],
+    [
+      "assignments",
+      "c",
+      "assignments_title_check",
+      [
+        "title"
+      ],
+      null,
+      "CHECK ((length(TRIM(BOTH FROM title)) > 0))"
+    ],
+    [
+      "assignments",
+      "f",
+      "assignments_updated_by_fkey",
+      [
+        "updated_by"
+      ],
+      "users",
+      "FOREIGN KEY (updated_by) REFERENCES lms.users(id)"
+    ],
+    [
+      "audit_log",
+      "f",
+      "audit_log_changed_by_fkey",
+      [
+        "changed_by"
+      ],
+      "users",
+      "FOREIGN KEY (changed_by) REFERENCES lms.users(id)"
+    ],
+    [
+      "audit_log",
+      "c",
+      "audit_log_operation_check",
+      [
+        "operation"
+      ],
+      null,
+      "CHECK (((operation)::text = ANY ((ARRAY['INSERT'::character varying, 'UPDATE'::character varying, 'DELETE'::character varying])::text[])))"
+    ],
+    [
+      "audit_log",
+      "p",
+      "audit_log_pkey",
+      [
+        "id"
+      ],
+      null,
+      "PRIMARY KEY (id)"
+    ],
+    [
+      "categories",
+      "c",
+      "categories_check",
+      [
+        "is_deleted",
+        "deleted_at"
+      ],
+      null,
+      "CHECK ((is_deleted = (deleted_at IS NOT NULL)))"
+    ],
+    [
+      "categories",
+      "c",
+      "categories_name_check",
+      [
+        "name"
+      ],
+      null,
+      "CHECK ((length(TRIM(BOTH FROM name)) > 0))"
+    ],
+    [
+      "categories",
+      "p",
+      "categories_pkey",
+      [
+        "id"
+      ],
+      null,
+      "PRIMARY KEY (id)"
+    ],
+    [
+      "categories",
+      "f",
+      "categories_updated_by_fkey",
+      [
+        "updated_by"
+      ],
+      "users",
+      "FOREIGN KEY (updated_by) REFERENCES lms.users(id)"
+    ],
+    [
+      "certificates",
+      "u",
+      "certificates_certificate_number_key",
+      [
+        "certificate_number"
+      ],
+      null,
+      "UNIQUE (certificate_number)"
+    ],
+    [
+      "certificates",
+      "f",
+      "certificates_enrollment_id_fkey",
+      [
+        "enrollment_id"
+      ],
+      "enrollments",
+      "FOREIGN KEY (enrollment_id) REFERENCES lms.enrollments(id)"
+    ],
+    [
+      "certificates",
+      "u",
+      "certificates_enrollment_id_key",
+      [
+        "enrollment_id"
+      ],
+      null,
+      "UNIQUE (enrollment_id)"
+    ],
+    [
+      "certificates",
+      "f",
+      "certificates_issued_by_fkey",
+      [
+        "issued_by"
+      ],
+      "users",
+      "FOREIGN KEY (issued_by) REFERENCES lms.users(id)"
+    ],
+    [
+      "certificates",
+      "p",
+      "certificates_pkey",
+      [
+        "id"
+      ],
+      null,
+      "PRIMARY KEY (id)"
+    ],
+    [
+      "cohorts",
+      "c",
+      "cohorts_capacity_check",
+      [
+        "capacity"
+      ],
+      null,
+      "CHECK ((capacity > 0))"
+    ],
+    [
+      "cohorts",
+      "c",
+      "cohorts_check",
+      [
+        "ends_on",
+        "starts_on"
+      ],
+      null,
+      "CHECK ((ends_on >= starts_on))"
+    ],
+    [
+      "cohorts",
+      "f",
+      "cohorts_course_id_fkey",
+      [
+        "course_id"
+      ],
+      "courses",
+      "FOREIGN KEY (course_id) REFERENCES lms.courses(id)"
+    ],
+    [
+      "cohorts",
+      "u",
+      "cohorts_course_id_name_key",
+      [
+        "course_id",
+        "name"
+      ],
+      null,
+      "UNIQUE (course_id, name)"
+    ],
+    [
+      "cohorts",
+      "p",
+      "cohorts_pkey",
+      [
+        "id"
+      ],
+      null,
+      "PRIMARY KEY (id)"
+    ],
+    [
+      "cohorts",
+      "c",
+      "cohorts_status_check",
+      [
+        "status"
+      ],
+      null,
+      "CHECK (((status)::text = ANY ((ARRAY['open'::character varying, 'closed'::character varying, 'finished'::character varying])::text[])))"
+    ],
+    [
+      "cohorts",
+      "f",
+      "cohorts_updated_by_fkey",
+      [
+        "updated_by"
+      ],
+      "users",
+      "FOREIGN KEY (updated_by) REFERENCES lms.users(id)"
+    ],
+    [
+      "course_instructors",
+      "f",
+      "course_instructors_course_id_fkey",
+      [
+        "course_id"
+      ],
+      "courses",
+      "FOREIGN KEY (course_id) REFERENCES lms.courses(id)"
+    ],
+    [
+      "course_instructors",
+      "u",
+      "course_instructors_course_id_instructor_id_key",
+      [
+        "course_id",
+        "instructor_id"
+      ],
+      null,
+      "UNIQUE (course_id, instructor_id)"
+    ],
+    [
+      "course_instructors",
+      "f",
+      "course_instructors_instructor_id_fkey",
+      [
+        "instructor_id"
+      ],
+      "instructor_profiles",
+      "FOREIGN KEY (instructor_id) REFERENCES lms.instructor_profiles(user_id)"
+    ],
+    [
+      "course_instructors",
+      "p",
+      "course_instructors_pkey",
+      [
+        "id"
+      ],
+      null,
+      "PRIMARY KEY (id)"
+    ],
+    [
+      "course_prerequisites",
+      "c",
+      "course_prerequisites_check",
+      [
+        "course_id",
+        "prerequisite_id"
+      ],
+      null,
+      "CHECK ((course_id <> prerequisite_id))"
+    ],
+    [
+      "course_prerequisites",
+      "f",
+      "course_prerequisites_course_id_fkey",
+      [
+        "course_id"
+      ],
+      "courses",
+      "FOREIGN KEY (course_id) REFERENCES lms.courses(id)"
+    ],
+    [
+      "course_prerequisites",
+      "u",
+      "course_prerequisites_course_id_prerequisite_id_key",
+      [
+        "course_id",
+        "prerequisite_id"
+      ],
+      null,
+      "UNIQUE (course_id, prerequisite_id)"
+    ],
+    [
+      "course_prerequisites",
+      "p",
+      "course_prerequisites_pkey",
+      [
+        "id"
+      ],
+      null,
+      "PRIMARY KEY (id)"
+    ],
+    [
+      "course_prerequisites",
+      "f",
+      "course_prerequisites_prerequisite_id_fkey",
+      [
+        "prerequisite_id"
+      ],
+      "courses",
+      "FOREIGN KEY (prerequisite_id) REFERENCES lms.courses(id)"
+    ],
+    [
+      "course_reviews",
+      "f",
+      "course_reviews_enrollment_id_fkey",
+      [
+        "enrollment_id"
+      ],
+      "enrollments",
+      "FOREIGN KEY (enrollment_id) REFERENCES lms.enrollments(id)"
+    ],
+    [
+      "course_reviews",
+      "u",
+      "course_reviews_enrollment_id_key",
+      [
+        "enrollment_id"
+      ],
+      null,
+      "UNIQUE (enrollment_id)"
+    ],
+    [
+      "course_reviews",
+      "p",
+      "course_reviews_pkey",
+      [
+        "id"
+      ],
+      null,
+      "PRIMARY KEY (id)"
+    ],
+    [
+      "course_reviews",
+      "c",
+      "course_reviews_rating_check",
+      [
+        "rating"
+      ],
+      null,
+      "CHECK (((rating >= 1) AND (rating <= 5)))"
+    ],
+    [
+      "course_reviews",
+      "f",
+      "course_reviews_updated_by_fkey",
+      [
+        "updated_by"
+      ],
+      "users",
+      "FOREIGN KEY (updated_by) REFERENCES lms.users(id)"
+    ],
+    [
+      "courses",
+      "f",
+      "courses_category_id_fkey",
+      [
+        "category_id"
+      ],
+      "categories",
+      "FOREIGN KEY (category_id) REFERENCES lms.categories(id)"
+    ],
+    [
+      "courses",
+      "c",
+      "courses_check",
+      [
+        "is_deleted",
+        "deleted_at"
+      ],
+      null,
+      "CHECK ((is_deleted = (deleted_at IS NOT NULL)))"
+    ],
+    [
+      "courses",
+      "p",
+      "courses_pkey",
+      [
+        "id"
+      ],
+      null,
+      "PRIMARY KEY (id)"
+    ],
+    [
+      "courses",
+      "c",
+      "courses_status_check",
+      [
+        "status"
+      ],
+      null,
+      "CHECK (((status)::text = ANY ((ARRAY['draft'::character varying, 'published'::character varying, 'archived'::character varying])::text[])))"
+    ],
+    [
+      "courses",
+      "c",
+      "courses_title_check",
+      [
+        "title"
+      ],
+      null,
+      "CHECK ((length(TRIM(BOTH FROM title)) > 0))"
+    ],
+    [
+      "courses",
+      "f",
+      "courses_updated_by_fkey",
+      [
+        "updated_by"
+      ],
+      "users",
+      "FOREIGN KEY (updated_by) REFERENCES lms.users(id)"
+    ],
+    [
+      "enrollments",
+      "c",
+      "enrollments_check",
+      [
+        "status",
+        "completed_at"
+      ],
+      null,
+      "CHECK ((((status)::text = 'completed'::text) = (completed_at IS NOT NULL)))"
+    ],
+    [
+      "enrollments",
+      "f",
+      "enrollments_cohort_id_fkey",
+      [
+        "cohort_id"
+      ],
+      "cohorts",
+      "FOREIGN KEY (cohort_id) REFERENCES lms.cohorts(id)"
+    ],
+    [
+      "enrollments",
+      "u",
+      "enrollments_cohort_id_student_id_key",
+      [
+        "cohort_id",
+        "student_id"
+      ],
+      null,
+      "UNIQUE (cohort_id, student_id)"
+    ],
+    [
+      "enrollments",
+      "p",
+      "enrollments_pkey",
+      [
+        "id"
+      ],
+      null,
+      "PRIMARY KEY (id)"
+    ],
+    [
+      "enrollments",
+      "c",
+      "enrollments_status_check",
+      [
+        "status"
+      ],
+      null,
+      "CHECK (((status)::text = ANY ((ARRAY['active'::character varying, 'completed'::character varying, 'cancelled'::character varying])::text[])))"
+    ],
+    [
+      "enrollments",
+      "f",
+      "enrollments_student_id_fkey",
+      [
+        "student_id"
+      ],
+      "student_profiles",
+      "FOREIGN KEY (student_id) REFERENCES lms.student_profiles(user_id)"
+    ],
+    [
+      "enrollments",
+      "f",
+      "enrollments_updated_by_fkey",
+      [
+        "updated_by"
+      ],
+      "users",
+      "FOREIGN KEY (updated_by) REFERENCES lms.users(id)"
+    ],
+    [
+      "instructor_profiles",
+      "p",
+      "instructor_profiles_pkey",
+      [
+        "user_id"
+      ],
+      null,
+      "PRIMARY KEY (user_id)"
+    ],
+    [
+      "instructor_profiles",
+      "f",
+      "instructor_profiles_user_id_fkey",
+      [
+        "user_id"
+      ],
+      "users",
+      "FOREIGN KEY (user_id) REFERENCES lms.users(id)"
+    ],
+    [
+      "lesson_progress",
+      "f",
+      "lesson_progress_enrollment_id_fkey",
+      [
+        "enrollment_id"
+      ],
+      "enrollments",
+      "FOREIGN KEY (enrollment_id) REFERENCES lms.enrollments(id)"
+    ],
+    [
+      "lesson_progress",
+      "u",
+      "lesson_progress_enrollment_id_lesson_id_key",
+      [
+        "enrollment_id",
+        "lesson_id"
+      ],
+      null,
+      "UNIQUE (enrollment_id, lesson_id)"
+    ],
+    [
+      "lesson_progress",
+      "f",
+      "lesson_progress_lesson_id_fkey",
+      [
+        "lesson_id"
+      ],
+      "lessons",
+      "FOREIGN KEY (lesson_id) REFERENCES lms.lessons(id)"
+    ],
+    [
+      "lesson_progress",
+      "p",
+      "lesson_progress_pkey",
+      [
+        "id"
+      ],
+      null,
+      "PRIMARY KEY (id)"
+    ],
+    [
+      "lessons",
+      "c",
+      "lessons_duration_minutes_check",
+      [
+        "duration_minutes"
+      ],
+      null,
+      "CHECK ((duration_minutes > 0))"
+    ],
+    [
+      "lessons",
+      "f",
+      "lessons_module_id_fkey",
+      [
+        "module_id"
+      ],
+      "modules",
+      "FOREIGN KEY (module_id) REFERENCES lms.modules(id)"
+    ],
+    [
+      "lessons",
+      "u",
+      "lessons_module_id_position_key",
+      [
+        "module_id",
+        "position"
+      ],
+      null,
+      "UNIQUE (module_id, \"position\")"
+    ],
+    [
+      "lessons",
+      "p",
+      "lessons_pkey",
+      [
+        "id"
+      ],
+      null,
+      "PRIMARY KEY (id)"
+    ],
+    [
+      "lessons",
+      "c",
+      "lessons_position_check",
+      [
+        "position"
+      ],
+      null,
+      "CHECK ((\"position\" > 0))"
+    ],
+    [
+      "lessons",
+      "c",
+      "lessons_title_check",
+      [
+        "title"
+      ],
+      null,
+      "CHECK ((length(TRIM(BOTH FROM title)) > 0))"
+    ],
+    [
+      "lessons",
+      "f",
+      "lessons_updated_by_fkey",
+      [
+        "updated_by"
+      ],
+      "users",
+      "FOREIGN KEY (updated_by) REFERENCES lms.users(id)"
+    ],
+    [
+      "materials",
+      "c",
+      "materials_kind_check",
+      [
+        "kind"
+      ],
+      null,
+      "CHECK (((kind)::text = ANY ((ARRAY['document'::character varying, 'video'::character varying, 'link'::character varying])::text[])))"
+    ],
+    [
+      "materials",
+      "f",
+      "materials_lesson_id_fkey",
+      [
+        "lesson_id"
+      ],
+      "lessons",
+      "FOREIGN KEY (lesson_id) REFERENCES lms.lessons(id)"
+    ],
+    [
+      "materials",
+      "p",
+      "materials_pkey",
+      [
+        "id"
+      ],
+      null,
+      "PRIMARY KEY (id)"
+    ],
+    [
+      "materials",
+      "c",
+      "materials_url_check",
+      [
+        "url"
+      ],
+      null,
+      "CHECK ((url ~ '^https?://'::text))"
+    ],
+    [
+      "modules",
+      "f",
+      "modules_course_id_fkey",
+      [
+        "course_id"
+      ],
+      "courses",
+      "FOREIGN KEY (course_id) REFERENCES lms.courses(id)"
+    ],
+    [
+      "modules",
+      "u",
+      "modules_course_id_position_key",
+      [
+        "course_id",
+        "position"
+      ],
+      null,
+      "UNIQUE (course_id, \"position\")"
+    ],
+    [
+      "modules",
+      "p",
+      "modules_pkey",
+      [
+        "id"
+      ],
+      null,
+      "PRIMARY KEY (id)"
+    ],
+    [
+      "modules",
+      "c",
+      "modules_position_check",
+      [
+        "position"
+      ],
+      null,
+      "CHECK ((\"position\" > 0))"
+    ],
+    [
+      "modules",
+      "c",
+      "modules_title_check",
+      [
+        "title"
+      ],
+      null,
+      "CHECK ((length(TRIM(BOTH FROM title)) > 0))"
+    ],
+    [
+      "modules",
+      "f",
+      "modules_updated_by_fkey",
+      [
+        "updated_by"
+      ],
+      "users",
+      "FOREIGN KEY (updated_by) REFERENCES lms.users(id)"
+    ],
+    [
+      "roles",
+      "c",
+      "roles_code_check",
+      [
+        "code"
+      ],
+      null,
+      "CHECK (((code)::text = ANY ((ARRAY['admin'::character varying, 'instructor'::character varying, 'student'::character varying])::text[])))"
+    ],
+    [
+      "roles",
+      "u",
+      "roles_code_key",
+      [
+        "code"
+      ],
+      null,
+      "UNIQUE (code)"
+    ],
+    [
+      "roles",
+      "p",
+      "roles_pkey",
+      [
+        "id"
+      ],
+      null,
+      "PRIMARY KEY (id)"
+    ],
+    [
+      "student_profiles",
+      "p",
+      "student_profiles_pkey",
+      [
+        "user_id"
+      ],
+      null,
+      "PRIMARY KEY (user_id)"
+    ],
+    [
+      "student_profiles",
+      "u",
+      "student_profiles_student_number_key",
+      [
+        "student_number"
+      ],
+      null,
+      "UNIQUE (student_number)"
+    ],
+    [
+      "student_profiles",
+      "f",
+      "student_profiles_user_id_fkey",
+      [
+        "user_id"
+      ],
+      "users",
+      "FOREIGN KEY (user_id) REFERENCES lms.users(id)"
+    ],
+    [
+      "submissions",
+      "c",
+      "submissions_answer_check",
+      [
+        "answer"
+      ],
+      null,
+      "CHECK ((length(TRIM(BOTH FROM answer)) > 0))"
+    ],
+    [
+      "submissions",
+      "f",
+      "submissions_assignment_id_fkey",
+      [
+        "assignment_id"
+      ],
+      "assignments",
+      "FOREIGN KEY (assignment_id) REFERENCES lms.assignments(id)"
+    ],
+    [
+      "submissions",
+      "c",
+      "submissions_check",
+      [
+        "score",
+        "graded_by",
+        "graded_at"
+      ],
+      null,
+      "CHECK ((((score IS NULL) AND (graded_by IS NULL) AND (graded_at IS NULL)) OR ((score IS NOT NULL) AND (graded_by IS NOT NULL) AND (graded_at IS NOT NULL))))"
+    ],
+    [
+      "submissions",
+      "u",
+      "submissions_enrollment_id_assignment_id_key",
+      [
+        "enrollment_id",
+        "assignment_id"
+      ],
+      null,
+      "UNIQUE (enrollment_id, assignment_id)"
+    ],
+    [
+      "submissions",
+      "f",
+      "submissions_enrollment_id_fkey",
+      [
+        "enrollment_id"
+      ],
+      "enrollments",
+      "FOREIGN KEY (enrollment_id) REFERENCES lms.enrollments(id)"
+    ],
+    [
+      "submissions",
+      "f",
+      "submissions_graded_by_fkey",
+      [
+        "graded_by"
+      ],
+      "instructor_profiles",
+      "FOREIGN KEY (graded_by) REFERENCES lms.instructor_profiles(user_id)"
+    ],
+    [
+      "submissions",
+      "p",
+      "submissions_pkey",
+      [
+        "id"
+      ],
+      null,
+      "PRIMARY KEY (id)"
+    ],
+    [
+      "submissions",
+      "c",
+      "submissions_score_check",
+      [
+        "score"
+      ],
+      null,
+      "CHECK ((score >= (0)::numeric))"
+    ],
+    [
+      "submissions",
+      "f",
+      "submissions_updated_by_fkey",
+      [
+        "updated_by"
+      ],
+      "users",
+      "FOREIGN KEY (updated_by) REFERENCES lms.users(id)"
+    ],
+    [
+      "users",
+      "c",
+      "users_check",
+      [
+        "is_deleted",
+        "deleted_at"
+      ],
+      null,
+      "CHECK ((is_deleted = (deleted_at IS NOT NULL)))"
+    ],
+    [
+      "users",
+      "c",
+      "users_email_check",
+      [
+        "email"
+      ],
+      null,
+      "CHECK ((((email)::text = lower((email)::text)) AND (POSITION(('@'::text) IN (email)) > 1)))"
+    ],
+    [
+      "users",
+      "c",
+      "users_full_name_check",
+      [
+        "full_name"
+      ],
+      null,
+      "CHECK ((length(TRIM(BOTH FROM full_name)) > 0))"
+    ],
+    [
+      "users",
+      "p",
+      "users_pkey",
+      [
+        "id"
+      ],
+      null,
+      "PRIMARY KEY (id)"
+    ],
+    [
+      "users",
+      "f",
+      "users_role_id_fkey",
+      [
+        "role_id"
+      ],
+      "roles",
+      "FOREIGN KEY (role_id) REFERENCES lms.roles(id)"
+    ],
+    [
+      "users",
+      "f",
+      "users_updated_by_fkey",
+      [
+        "updated_by"
+      ],
+      "users",
+      "FOREIGN KEY (updated_by) REFERENCES lms.users(id)"
+    ]
+  ],
+  "references": [
+    [
+      "assignments",
+      "lesson_id",
+      "lessons",
+      "id"
+    ],
+    [
+      "assignments",
+      "updated_by",
+      "users",
+      "id"
+    ],
+    [
+      "audit_log",
+      "changed_by",
+      "users",
+      "id"
+    ],
+    [
+      "categories",
+      "updated_by",
+      "users",
+      "id"
+    ],
+    [
+      "certificates",
+      "enrollment_id",
+      "enrollments",
+      "id"
+    ],
+    [
+      "certificates",
+      "issued_by",
+      "users",
+      "id"
+    ],
+    [
+      "cohorts",
+      "course_id",
+      "courses",
+      "id"
+    ],
+    [
+      "cohorts",
+      "updated_by",
+      "users",
+      "id"
+    ],
+    [
+      "course_instructors",
+      "course_id",
+      "courses",
+      "id"
+    ],
+    [
+      "course_instructors",
+      "instructor_id",
+      "instructor_profiles",
+      "user_id"
+    ],
+    [
+      "course_prerequisites",
+      "course_id",
+      "courses",
+      "id"
+    ],
+    [
+      "course_prerequisites",
+      "prerequisite_id",
+      "courses",
+      "id"
+    ],
+    [
+      "course_reviews",
+      "enrollment_id",
+      "enrollments",
+      "id"
+    ],
+    [
+      "course_reviews",
+      "updated_by",
+      "users",
+      "id"
+    ],
+    [
+      "courses",
+      "category_id",
+      "categories",
+      "id"
+    ],
+    [
+      "courses",
+      "updated_by",
+      "users",
+      "id"
+    ],
+    [
+      "enrollments",
+      "cohort_id",
+      "cohorts",
+      "id"
+    ],
+    [
+      "enrollments",
+      "student_id",
+      "student_profiles",
+      "user_id"
+    ],
+    [
+      "enrollments",
+      "updated_by",
+      "users",
+      "id"
+    ],
+    [
+      "instructor_profiles",
+      "user_id",
+      "users",
+      "id"
+    ],
+    [
+      "lesson_progress",
+      "enrollment_id",
+      "enrollments",
+      "id"
+    ],
+    [
+      "lesson_progress",
+      "lesson_id",
+      "lessons",
+      "id"
+    ],
+    [
+      "lessons",
+      "module_id",
+      "modules",
+      "id"
+    ],
+    [
+      "lessons",
+      "updated_by",
+      "users",
+      "id"
+    ],
+    [
+      "materials",
+      "lesson_id",
+      "lessons",
+      "id"
+    ],
+    [
+      "modules",
+      "course_id",
+      "courses",
+      "id"
+    ],
+    [
+      "modules",
+      "updated_by",
+      "users",
+      "id"
+    ],
+    [
+      "student_profiles",
+      "user_id",
+      "users",
+      "id"
+    ],
+    [
+      "submissions",
+      "assignment_id",
+      "assignments",
+      "id"
+    ],
+    [
+      "submissions",
+      "enrollment_id",
+      "enrollments",
+      "id"
+    ],
+    [
+      "submissions",
+      "graded_by",
+      "instructor_profiles",
+      "user_id"
+    ],
+    [
+      "submissions",
+      "updated_by",
+      "users",
+      "id"
+    ],
+    [
+      "users",
+      "role_id",
+      "roles",
+      "id"
+    ],
+    [
+      "users",
+      "updated_by",
+      "users",
+      "id"
+    ]
+  ],
+  "indexes": [
+    [
+      "assignments",
+      "assignments_pkey",
+      "CREATE UNIQUE INDEX assignments_pkey ON lms.assignments USING btree (id)"
+    ],
+    [
+      "audit_log",
+      "audit_log_pkey",
+      "CREATE UNIQUE INDEX audit_log_pkey ON lms.audit_log USING btree (id)"
+    ],
+    [
+      "audit_log",
+      "ix_audit_new_data",
+      "CREATE INDEX ix_audit_new_data ON lms.audit_log USING gin (new_data)"
+    ],
+    [
+      "audit_log",
+      "ix_audit_record",
+      "CREATE INDEX ix_audit_record ON lms.audit_log USING btree (table_name, record_id, id)"
+    ],
+    [
+      "categories",
+      "categories_pkey",
+      "CREATE UNIQUE INDEX categories_pkey ON lms.categories USING btree (id)"
+    ],
+    [
+      "categories",
+      "uq_categories_active_name",
+      "CREATE UNIQUE INDEX uq_categories_active_name ON lms.categories USING btree (lower((name)::text)) WHERE (NOT is_deleted)"
+    ],
+    [
+      "certificates",
+      "certificates_certificate_number_key",
+      "CREATE UNIQUE INDEX certificates_certificate_number_key ON lms.certificates USING btree (certificate_number)"
+    ],
+    [
+      "certificates",
+      "certificates_enrollment_id_key",
+      "CREATE UNIQUE INDEX certificates_enrollment_id_key ON lms.certificates USING btree (enrollment_id)"
+    ],
+    [
+      "certificates",
+      "certificates_pkey",
+      "CREATE UNIQUE INDEX certificates_pkey ON lms.certificates USING btree (id)"
+    ],
+    [
+      "cohorts",
+      "cohorts_course_id_name_key",
+      "CREATE UNIQUE INDEX cohorts_course_id_name_key ON lms.cohorts USING btree (course_id, name)"
+    ],
+    [
+      "cohorts",
+      "cohorts_pkey",
+      "CREATE UNIQUE INDEX cohorts_pkey ON lms.cohorts USING btree (id)"
+    ],
+    [
+      "course_instructors",
+      "course_instructors_course_id_instructor_id_key",
+      "CREATE UNIQUE INDEX course_instructors_course_id_instructor_id_key ON lms.course_instructors USING btree (course_id, instructor_id)"
+    ],
+    [
+      "course_instructors",
+      "course_instructors_pkey",
+      "CREATE UNIQUE INDEX course_instructors_pkey ON lms.course_instructors USING btree (id)"
+    ],
+    [
+      "course_instructors",
+      "ix_course_instructors_instructor",
+      "CREATE INDEX ix_course_instructors_instructor ON lms.course_instructors USING btree (instructor_id)"
+    ],
+    [
+      "course_prerequisites",
+      "course_prerequisites_course_id_prerequisite_id_key",
+      "CREATE UNIQUE INDEX course_prerequisites_course_id_prerequisite_id_key ON lms.course_prerequisites USING btree (course_id, prerequisite_id)"
+    ],
+    [
+      "course_prerequisites",
+      "course_prerequisites_pkey",
+      "CREATE UNIQUE INDEX course_prerequisites_pkey ON lms.course_prerequisites USING btree (id)"
+    ],
+    [
+      "course_prerequisites",
+      "ix_prerequisite_reverse",
+      "CREATE INDEX ix_prerequisite_reverse ON lms.course_prerequisites USING btree (prerequisite_id)"
+    ],
+    [
+      "course_reviews",
+      "course_reviews_enrollment_id_key",
+      "CREATE UNIQUE INDEX course_reviews_enrollment_id_key ON lms.course_reviews USING btree (enrollment_id)"
+    ],
+    [
+      "course_reviews",
+      "course_reviews_pkey",
+      "CREATE UNIQUE INDEX course_reviews_pkey ON lms.course_reviews USING btree (id)"
+    ],
+    [
+      "courses",
+      "courses_pkey",
+      "CREATE UNIQUE INDEX courses_pkey ON lms.courses USING btree (id)"
+    ],
+    [
+      "courses",
+      "ix_courses_category",
+      "CREATE INDEX ix_courses_category ON lms.courses USING btree (category_id)"
+    ],
+    [
+      "courses",
+      "ix_courses_search",
+      "CREATE INDEX ix_courses_search ON lms.courses USING gin (to_tsvector('simple'::regconfig, (((title)::text || ' '::text) || description))) WHERE (NOT is_deleted)"
+    ],
+    [
+      "courses",
+      "uq_courses_active_code",
+      "CREATE UNIQUE INDEX uq_courses_active_code ON lms.courses USING btree (code) WHERE (NOT is_deleted)"
+    ],
+    [
+      "enrollments",
+      "enrollments_cohort_id_student_id_key",
+      "CREATE UNIQUE INDEX enrollments_cohort_id_student_id_key ON lms.enrollments USING btree (cohort_id, student_id)"
+    ],
+    [
+      "enrollments",
+      "enrollments_pkey",
+      "CREATE UNIQUE INDEX enrollments_pkey ON lms.enrollments USING btree (id)"
+    ],
+    [
+      "enrollments",
+      "ix_enrollments_student",
+      "CREATE INDEX ix_enrollments_student ON lms.enrollments USING btree (student_id)"
+    ],
+    [
+      "instructor_profiles",
+      "instructor_profiles_pkey",
+      "CREATE UNIQUE INDEX instructor_profiles_pkey ON lms.instructor_profiles USING btree (user_id)"
+    ],
+    [
+      "lesson_progress",
+      "ix_progress_lesson",
+      "CREATE INDEX ix_progress_lesson ON lms.lesson_progress USING btree (lesson_id)"
+    ],
+    [
+      "lesson_progress",
+      "lesson_progress_enrollment_id_lesson_id_key",
+      "CREATE UNIQUE INDEX lesson_progress_enrollment_id_lesson_id_key ON lms.lesson_progress USING btree (enrollment_id, lesson_id)"
+    ],
+    [
+      "lesson_progress",
+      "lesson_progress_pkey",
+      "CREATE UNIQUE INDEX lesson_progress_pkey ON lms.lesson_progress USING btree (id)"
+    ],
+    [
+      "lessons",
+      "lessons_module_id_position_key",
+      "CREATE UNIQUE INDEX lessons_module_id_position_key ON lms.lessons USING btree (module_id, \"position\")"
+    ],
+    [
+      "lessons",
+      "lessons_pkey",
+      "CREATE UNIQUE INDEX lessons_pkey ON lms.lessons USING btree (id)"
+    ],
+    [
+      "materials",
+      "materials_pkey",
+      "CREATE UNIQUE INDEX materials_pkey ON lms.materials USING btree (id)"
+    ],
+    [
+      "modules",
+      "modules_course_id_position_key",
+      "CREATE UNIQUE INDEX modules_course_id_position_key ON lms.modules USING btree (course_id, \"position\")"
+    ],
+    [
+      "modules",
+      "modules_pkey",
+      "CREATE UNIQUE INDEX modules_pkey ON lms.modules USING btree (id)"
+    ],
+    [
+      "roles",
+      "roles_code_key",
+      "CREATE UNIQUE INDEX roles_code_key ON lms.roles USING btree (code)"
+    ],
+    [
+      "roles",
+      "roles_pkey",
+      "CREATE UNIQUE INDEX roles_pkey ON lms.roles USING btree (id)"
+    ],
+    [
+      "student_profiles",
+      "student_profiles_pkey",
+      "CREATE UNIQUE INDEX student_profiles_pkey ON lms.student_profiles USING btree (user_id)"
+    ],
+    [
+      "student_profiles",
+      "student_profiles_student_number_key",
+      "CREATE UNIQUE INDEX student_profiles_student_number_key ON lms.student_profiles USING btree (student_number)"
+    ],
+    [
+      "submissions",
+      "ix_submissions_assignment",
+      "CREATE INDEX ix_submissions_assignment ON lms.submissions USING btree (assignment_id)"
+    ],
+    [
+      "submissions",
+      "submissions_enrollment_id_assignment_id_key",
+      "CREATE UNIQUE INDEX submissions_enrollment_id_assignment_id_key ON lms.submissions USING btree (enrollment_id, assignment_id)"
+    ],
+    [
+      "submissions",
+      "submissions_pkey",
+      "CREATE UNIQUE INDEX submissions_pkey ON lms.submissions USING btree (id)"
+    ],
+    [
+      "users",
+      "uq_users_active_email",
+      "CREATE UNIQUE INDEX uq_users_active_email ON lms.users USING btree (email) WHERE (NOT is_deleted)"
+    ],
+    [
+      "users",
+      "users_pkey",
+      "CREATE UNIQUE INDEX users_pkey ON lms.users USING btree (id)"
+    ]
+  ]
+}
